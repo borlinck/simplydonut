@@ -300,3 +300,49 @@ body {
         transform: translateY(0) rotate(0deg);
     }
 }
+
+@keyframes flyAwayLeft {
+    0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) translateX(-50vw) rotate(-45deg);
+        opacity: 0;
+    }
+}
+
+@keyframes flyAwayRight {
+    0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) translateX(50vw) rotate(45deg);
+        opacity: 0;
+    }
+}
+
+@keyframes flyAwayUp {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Classes para aplicar as animações */
+.fly-away-left {
+    animation: flyAwayLeft 1s ease-out forwards;
+}
+
+.fly-away-right {
+    animation: flyAwayRight 1s ease-out forwards;
+}
+
+.fly-away-up {
+    animation: flyAwayUp 1s ease-out forwards;
+}

@@ -1,17 +1,14 @@
-// script.js
-
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
+    const homeSection = document.querySelector('#home');
     const nextSection = document.querySelector('#strawberry');
-    const homeLogo = document.querySelector('.navbar-brand'); // Logo na navbar
-    const homeLink = document.querySelector('.navbar .nav-link[href="#home"]'); // Link "Home" na navbar
-    let homeRemoved = false;
-
-    const originalHomeHTML = document.querySelector('#home').outerHTML;
+    const homeLogo = document.querySelector('.navbar-brand');
+    const homeLink = document.querySelector('.navbar .nav-link[href="#home"]');
+    const homeButton = document.querySelector('.homeButton');
+    let homeHidden = false;
 
     function startAnimation() {
-        if (homeRemoved) return;
+        if (homeHidden) return;
 
-        const homeSection = document.querySelector('#home');
         const donutLogoImg = homeSection.querySelector('.donutLogoImg');
         const brandName = homeSection.querySelector('.brandName');
         const nameBrand = homeSection.querySelector('.nameBrand');
@@ -20,30 +17,26 @@ document.addEventListener('DOMContentLoaded', function() {
         brandName.classList.add('fly-away-right');
         nameBrand.classList.add('fly-away-up');
 
+        nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
         setTimeout(() => {
-            nextSection.scrollIntoView({ behavior: 'smooth' });
-            
-            setTimeout(() => {
-                homeSection.remove();
-                homeRemoved = true;
-            }, 500);
-        }, 500);
+            homeSection.classList.add('hidden');
+            homeHidden = true;
+
+            donutLogoImg.classList.remove('fly-away-left');
+            brandName.classList.remove('fly-away-right');
+            nameBrand.classList.remove('fly-away-up');
+        }, 530);
     }
 
     function restoreHomeSection() {
-        if (homeRemoved) {
-            document.body.insertAdjacentHTML('afterbegin', originalHomeHTML);
+        if (homeHidden) {
+            homeSection.classList.remove('hidden');
+            homeHidden = false;
 
-            const newButton = document.querySelector('.homeButton');
-            newButton.addEventListener('click', (event) => {
-                event.preventDefault();
-                startAnimation();
-            });
-
-            const newHomeSection = document.querySelector('#home');
-            newHomeSection.scrollIntoView({ behavior: 'smooth' });
-
-            homeRemoved = false;
+            homeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+            homeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }
 
@@ -57,8 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
         restoreHomeSection();
     });
 
-    const button = document.querySelector('.homeButton');
-    button.addEventListener('click', (event) => {
+    homeButton.addEventListener('click', (event) => {
         event.preventDefault();
         startAnimation();
     });

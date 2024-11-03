@@ -5,6 +5,10 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
+.hidden {
+    display: none;
+}
+
 .navbar{
     background-color: rgba(191, 191, 191, 0.216);
 }

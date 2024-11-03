@@ -148,9 +148,9 @@ body {
 }
 
 .homeButton:active {
+    background-color: rgba(204, 204, 204, 0.758) !important;
     box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.5);
     transform: translateY(2px);
-    background-color: #aaaaaa;
 }
 
 .addCart{
@@ -339,7 +339,6 @@ body {
     }
 }
 
-/* Classes para aplicar as animações */
 .fly-away-left {
     animation: flyAwayLeft 1s ease-out forwards;
 }

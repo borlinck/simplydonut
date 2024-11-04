@@ -74,6 +74,10 @@ body {
     line-height: 1rem;
 }
 
+.text-shadow {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
 .card-text {
     margin-bottom: 0.3rem;
 }
@@ -82,6 +86,7 @@ body {
     max-width: 300px;
     background-color: rgba(255, 255, 255, 0.1);
     border: none;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .priceCart {
@@ -89,8 +94,9 @@ body {
 }
 
 .plusButton, .minusButton {
-    height: 30px;
-    width: 30px;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
     padding: 0;
     display: flex;
     align-items: center;
@@ -99,6 +105,10 @@ body {
     color: white;
     border-color: white;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    border: 1px solid white;
+    background-color: transparent;
+    font-size: 12px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.363);
 }
 
 .quantity {

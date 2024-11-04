@@ -41,14 +41,28 @@
                 <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="icons/cart.svg" alt="" >
                 </a>
-                <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end dropdown-menu-start">
-                    <li><a class="dropdown-item" href="#strawberry">Strawberry</a></li>
-                    <li><a class="dropdown-item" href="#blueberry">Blueberry</a></li>
-                    <li><a class="dropdown-item" href="#greenApple">Green Apple</a></li>
-                    <li><a class="dropdown-item" href="#chocolate">Chocolate</a></li>
-                    <li><a class="dropdown-item" href="#coconut">Coconut</a></li>
-                </ul>   
-            </div>
+                <div class="dropdown-menu dropdown-menu-dark dropdown-menu-end dropdown-menu-start p-3 dropdownCartList">
+                    <div class="card mb-3 cardCart text-light">
+                        <div class="row g-0">
+                            <div class="col-md-4 d-flex align-items-center">
+                                <img src="images/donuts/greeAppleDonut.png" class="img-fluid rounded-start imgCartDonut" alt="Green Apple Donut">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card-body">
+                                    <h4 class="card-title">Green Apple</h4>
+                                    <p class="card-text">notes: none</p>
+                                    <h5 class="priceCart">$ 2.99</h5>  
+                                </div>
+                            </div>
+                            <div class="col-md-2 d-flex flex-column align-items-center justify-content-center">
+                                <button class="btn btn-outline-light btn-sm mb-2 rounded-circle plusButton">+</button>
+                                <h5 class="quantity">2</h5>
+                                <button class="btn btn-outline-light btn-sm mt-2 rounded-circle minusButton">-</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>   
+            </div>            
 
         </div>
     </nav>

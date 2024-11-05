@@ -253,7 +253,7 @@ body {
 }
 
 #home{
-    background: radial-gradient(circle, rgb(255, 255, 255) 0%, #f1f0f0 50%, #cbd4d4 100%);
+    background: radial-gradient(circle, rgb(255, 254, 253) 0%, rgb(255, 252, 247) 50%, rgb(255, 241, 226) 100%);
 }
 
 #strawberry {

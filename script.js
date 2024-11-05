@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const homeButton = document.querySelector('.homeButton');
     let homeHidden = false;
 
+    let cart = [];
+
     function startAnimation() {
         if (homeHidden) return;
 
@@ -54,4 +56,172 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         startAnimation();
     });
+
+    const addToCartButtons = document.querySelectorAll('.addCart');
+
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+            const section = button.closest('section');
+            addItemToCart(section);
+        });
+    });
+
+    function addItemToCart(section) {
+        const name = section.querySelector('.nameDonut').textContent.trim();
+        const priceText = section.querySelector('.price').textContent.trim();
+        const price = parseFloat(priceText.replace('$', '').trim());
+        const imgSrc = section.querySelector('.donutImg').getAttribute('src');
+
+        const existingItem = cart.find(item => item.name === name);
+
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            const newItem = {
+                name: name,
+                price: price,
+                quantity: 1,
+                imgSrc: imgSrc,
+                notes: 'none'
+            };
+            cart.push(newItem);
+        }
+
+        updateCartDisplay();
+    }
+
+    function updateCartDisplay() {
+        const cartList = document.querySelector('.dropdownCartList');
+        cartList.innerHTML = '';
+    
+        let subtotal = 0;
+    
+        if (cart.length === 0) {
+            const emptyMessage = document.createElement('p');
+            emptyMessage.classList.add('text-light', 'text-center');
+            emptyMessage.textContent = 'Your cart is empty.';
+            cartList.appendChild(emptyMessage);
+            return;
+        }
+    
+        cart.forEach(item => {
+            subtotal += item.price * item.quantity;
+    
+            const card = document.createElement('div');
+            card.classList.add('card', 'mb-3', 'cardCart', 'text-light');
+    
+            const row = document.createElement('div');
+            row.classList.add('row', 'g-0');
+    
+            const colImg = document.createElement('div');
+            colImg.classList.add('col-md-4', 'd-flex', 'align-items-center');
+            const img = document.createElement('img');
+            img.src = item.imgSrc;
+            img.classList.add('img-fluid', 'rounded-start', 'imgCartDonut');
+            img.alt = item.name;
+            colImg.appendChild(img);
+    
+            const colInfo = document.createElement('div');
+            colInfo.classList.add('col-md-6');
+            const cardBody = document.createElement('div');
+            cardBody.classList.add('card-body');
+    
+            const title = document.createElement('h4');
+            title.classList.add('card-title');
+            title.textContent = item.name;
+    
+            const notes = document.createElement('p');
+            notes.classList.add('card-text');
+            notes.textContent = `notes: ${item.notes}`;
+    
+            const price = document.createElement('h5');
+            price.classList.add('priceCart');
+            price.textContent = `$ ${item.price.toFixed(2)}`;
+    
+            cardBody.appendChild(title);
+            cardBody.appendChild(notes);
+            cardBody.appendChild(price);
+            colInfo.appendChild(cardBody);
+    
+            const colQty = document.createElement('div');
+            colQty.classList.add('col-md-2', 'd-flex', 'flex-column', 'align-items-center', 'justify-content-center');
+    
+            const plusButton = document.createElement('button');
+            plusButton.classList.add('btn', 'btn-outline-light', 'btn-sm', 'mb-2', 'plusButton');
+            plusButton.textContent = '+';
+            plusButton.addEventListener('click', (event) => {
+                event.stopPropagation();
+                item.quantity += 1;
+                updateCartDisplay();
+            });
+    
+            const quantity = document.createElement('h5');
+            quantity.classList.add('quantity');
+            quantity.textContent = item.quantity;
+    
+            const minusButton = document.createElement('button');
+            minusButton.classList.add('btn', 'btn-outline-light', 'btn-sm', 'mt-2', 'minusButton');
+            minusButton.textContent = '-';
+            minusButton.addEventListener('click', (event) => {
+                event.stopPropagation();
+                item.quantity -= 1;
+                if (item.quantity <= 0) {
+                    cart = cart.filter(cartItem => cartItem !== item);
+                }
+                updateCartDisplay();
+            });
+    
+            colQty.appendChild(plusButton);
+            colQty.appendChild(quantity);
+            colQty.appendChild(minusButton);
+    
+            row.appendChild(colImg);
+            row.appendChild(colInfo);
+            row.appendChild(colQty);
+            card.appendChild(row);
+    
+            cartList.appendChild(card);
+        });
+    
+        const hr1 = document.createElement('hr');
+        hr1.classList.add('my-2', 'border-light');
+        cartList.appendChild(hr1);
+    
+        const subtotalDiv = document.createElement('div');
+        subtotalDiv.classList.add('d-flex', 'justify-content-between', 'text-light', 'text-shadow');
+        subtotalDiv.innerHTML = `<span>Subtotal</span><span>$ ${subtotal.toFixed(2)}</span>`;
+        cartList.appendChild(subtotalDiv);
+    
+        const shippingFee = 2.50;
+        const shippingDiv = document.createElement('div');
+        shippingDiv.classList.add('d-flex', 'justify-content-between', 'text-light', 'text-shadow');
+        shippingDiv.innerHTML = `<span>Shipping Fee</span><span>$ ${shippingFee.toFixed(2)}</span>`;
+        cartList.appendChild(shippingDiv);
+    
+        const hr2 = document.createElement('hr');
+        hr2.classList.add('my-2', 'border-light');
+        cartList.appendChild(hr2);
+    
+        const total = subtotal + shippingFee;
+        const totalDiv = document.createElement('div');
+        totalDiv.classList.add('d-flex', 'justify-content-between', 'text-light', 'text-shadow');
+        totalDiv.innerHTML = `<strong>Total</strong><strong>$ ${total.toFixed(2)}</strong>`;
+        cartList.appendChild(totalDiv);
+    
+        const confirmButton = document.createElement('button');
+        confirmButton.classList.add('btn', 'btn-outline-light', 'w-100', 'mt-2', 'text-shadow', 'confirmOrder');
+        confirmButton.textContent = 'Confirm Order';
+    
+        confirmButton.addEventListener('click', (event) => {
+            event.stopPropagation();
+            alert('Order confirmed!');
+            cart = [];
+            updateCartDisplay();
+        });
+    
+        cartList.appendChild(confirmButton);
+    }
+    
+    updateCartDisplay();
 });

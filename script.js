@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const homeLogo = document.querySelector('.navbar-brand');
     const homeLink = document.querySelector('.navbar .nav-link[href="#home"]');
     const homeButton = document.querySelector('.homeButton');
+    const navbar = document.querySelector('.navbar');
     let homeHidden = false;
-
     let cart = [];
 
     function startAnimation() {
@@ -224,4 +224,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     updateCartDisplay();
+
+    function updateNavbarShadow() {
+        const homeRect = homeSection.getBoundingClientRect();
+        if (homeRect.top <= 0 && homeRect.bottom >= 0) {
+            navbar.classList.add('navbar-home-shadow', 'navbar-dark-shadow');
+        } else {
+            navbar.classList.remove('navbar-home-shadow', 'navbar-dark-shadow');
+        }
+    }
+    
+    updateNavbarShadow();
+    
+    window.addEventListener('scroll', updateNavbarShadow);
 });

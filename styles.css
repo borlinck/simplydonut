@@ -135,6 +135,24 @@ body {
     color: white;
 }
 
+.navbar-home-shadow .nav-link,
+.navbar-home-shadow .navbar-brand img,
+.navbar-home-shadow .navbar-toggler-icon {
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9);
+    color: #ffffff;
+}
+
+.navbar-dark-shadow .dropdownCart .dropdown-toggle img,
+.navbar-dark-shadow .dropdownCartList,
+.navbar-dark-shadow .dropdownCartList .card-title,
+.navbar-dark-shadow .dropdownCartList .priceCart,
+.navbar-dark-shadow .dropdownCartList .plusButton,
+.navbar-dark-shadow .dropdownCartList .minusButton,
+.navbar-dark-shadow .dropdownCartList .confirmOrder {
+    text-shadow: 2px 2px 5px rgb(0, 0, 0);
+    color: #ffffff;
+}
+
 .baseDiv{
     height: 100vh;
     width: 100vw;

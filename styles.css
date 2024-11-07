@@ -137,10 +137,11 @@ body {
 
 .navbar-home-shadow .nav-link,
 .navbar-home-shadow .navbar-brand img,
-.navbar-home-shadow .navbar-toggler-icon {
+.navbar-home-shadow .navbar-toggler-icon,
+.navbar-home-shadow .dropdownCart .dropdown-toggle img {
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9);
-    color: #ffffff;
-}
+    color: #ededed;
+    filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.9));}
 
 .navbar-dark-shadow .dropdownCart .dropdown-toggle img,
 .navbar-dark-shadow .dropdownCartList,
@@ -150,7 +151,7 @@ body {
 .navbar-dark-shadow .dropdownCartList .minusButton,
 .navbar-dark-shadow .dropdownCartList .confirmOrder {
     text-shadow: 2px 2px 5px rgb(0, 0, 0);
-    color: #ffffff;
+    color: #ededed;
 }
 
 .baseDiv{

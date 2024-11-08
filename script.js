@@ -35,11 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (homeHidden) {
             homeSection.classList.remove('hidden');
             homeHidden = false;
-
-            homeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        } else {
-            homeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
+        homeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     homeLogo.addEventListener('click', (event) => {
@@ -225,16 +222,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateCartDisplay();
 
-    function updateNavbarShadow() {
-        const homeRect = homeSection.getBoundingClientRect();
-        if (homeRect.top <= 0 && homeRect.bottom >= 0) {
+    function updateNavbarShadow(isHomeVisible) {
+        if (isHomeVisible) {
             navbar.classList.add('navbar-home-shadow', 'navbar-dark-shadow');
         } else {
             navbar.classList.remove('navbar-home-shadow', 'navbar-dark-shadow');
         }
     }
-    
-    updateNavbarShadow();
-    
-    window.addEventListener('scroll', updateNavbarShadow);
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach(entry => {
+                updateNavbarShadow(entry.isIntersecting);
+            });
+        },
+        { threshold: 0.5 }
+    );
+
+    observer.observe(homeSection);
 });

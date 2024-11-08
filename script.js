@@ -58,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     addToCartButtons.forEach(button => {
         button.addEventListener('click', (event) => {
+            event.stopPropagation();
             event.preventDefault();
             const section = button.closest('section');
             addItemToCart(section);
@@ -69,9 +70,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const priceText = section.querySelector('.price').textContent.trim();
         const price = parseFloat(priceText.replace('$', '').trim());
         const imgSrc = section.querySelector('.donutImg').getAttribute('src');
-
+    
         const existingItem = cart.find(item => item.name === name);
-
+    
         if (existingItem) {
             existingItem.quantity += 1;
         } else {
@@ -84,7 +85,24 @@ document.addEventListener('DOMContentLoaded', () => {
             };
             cart.push(newItem);
         }
-
+    
+        const cartIcon = document.querySelector('.dropdownCart .dropdown-toggle img');
+        cartIcon.classList.add('cart-pulse');
+        setTimeout(() => {
+            cartIcon.classList.remove('cart-pulse');
+        }, 500);
+    
+        const feedbackIcon = document.createElement('div');
+        feedbackIcon.classList.add('feedback-icon', 'cart-pulse');
+        feedbackIcon.textContent = '+1';
+        cartIcon.parentNode.appendChild(feedbackIcon);
+        feedbackIcon.style.display = 'block';
+    
+        setTimeout(() => {
+            feedbackIcon.style.display = 'none';
+            feedbackIcon.remove();
+        }, 1600);
+    
         updateCartDisplay();
     }
 

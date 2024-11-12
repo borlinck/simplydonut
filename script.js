@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             donutLogoImg.classList.remove('fly-away-left');
             brandName.classList.remove('fly-away-right');
             nameBrand.classList.remove('fly-away-up');
-        }, 700);
+        }, 800);
     }
 
     function restoreHomeSection() {

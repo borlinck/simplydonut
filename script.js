@@ -177,15 +177,30 @@ document.addEventListener('DOMContentLoaded', () => {
     
             const minusButton = document.createElement('button');
             minusButton.classList.add('btn', 'btn-outline-light', 'btn-sm', 'mt-2', 'minusButton');
-            minusButton.textContent = '-';
-            minusButton.addEventListener('click', (event) => {
-                event.stopPropagation();
-                item.quantity -= 1;
-                if (item.quantity <= 0) {
+    
+            if (item.quantity > 1) {
+                minusButton.textContent = '-';
+                minusButton.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    item.quantity -= 1;
+                    updateCartDisplay();
+                });
+            } else {
+                const trashIcon = document.createElement('img');
+                trashIcon.src = 'icons/trash.svg';
+                trashIcon.alt = 'Remove';
+                trashIcon.style.width = '16px';
+                trashIcon.style.height = '16px';
+                trashIcon.style.opacity = '0.8';
+                trashIcon.style.filter = 'drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.5))';
+    
+                minusButton.appendChild(trashIcon);
+                minusButton.addEventListener('click', (event) => {
+                    event.stopPropagation();
                     cart = cart.filter(cartItem => cartItem !== item);
-                }
-                updateCartDisplay();
-            });
+                    updateCartDisplay();
+                });
+            }
     
             colQty.appendChild(plusButton);
             colQty.appendChild(quantity);

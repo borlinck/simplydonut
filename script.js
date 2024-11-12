@@ -8,6 +8,17 @@ document.addEventListener('DOMContentLoaded', () => {
     let homeHidden = false;
     let cart = [];
 
+    if (localStorage.getItem('cart')) {
+        try {
+            cart = JSON.parse(localStorage.getItem('cart'));
+        } catch (e) {
+            console.error('Erro ao carregar o carrinho do localStorage:', e);
+            localStorage.removeItem('cart');
+        }
+    }
+
+    updateCartDisplay();
+
     function startAnimation() {
         if (homeHidden) return;
 
@@ -117,6 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
             emptyMessage.classList.add('text-light', 'text-center');
             emptyMessage.textContent = 'Your cart is empty.';
             cartList.appendChild(emptyMessage);
+            localStorage.setItem('cart', JSON.stringify(cart));
             return;
         }
     
@@ -245,9 +257,12 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Order confirmed!');
             cart = [];
             updateCartDisplay();
+            localStorage.removeItem('cart');
         });
     
         cartList.appendChild(confirmButton);
+    
+        localStorage.setItem('cart', JSON.stringify(cart));
     }
 
     updateCartDisplay();
@@ -259,6 +274,22 @@ document.addEventListener('DOMContentLoaded', () => {
             navbar.classList.remove('navbar-home-shadow', 'navbar-dark-shadow');
         }
     }
+
+    window.addEventListener('storage', (event) => {
+        if (event.key === 'cart') {
+            if (event.newValue) {
+                try {
+                    cart = JSON.parse(event.newValue);
+                } catch (e) {
+                    console.error('Erro ao sincronizar o carrinho entre abas:', e);
+                    cart = [];
+                }
+            } else {
+                cart = [];
+            }
+            updateCartDisplay();
+        }
+    });
 
     const observer = new IntersectionObserver(
         (entries) => {

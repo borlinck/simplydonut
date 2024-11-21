@@ -357,6 +357,75 @@ body {
     background-color: #8eccffb7;
 }
 
+.body-blur #mainContent {
+    filter: blur(8px);
+    pointer-events: none;
+}
+
+.modal-custom {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    width: 100%;
+    max-width: 700px;
+}
+
+.modal-custom .card {
+    border-radius: 12px;
+    background-color: #f5f5f5;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.modal-custom button {
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.modal-close-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: #000;
+    outline: none;
+}
+
+.modal-close-button:hover {
+    opacity: 0.7;
+}
+
+.modal-close-button:focus {
+    box-shadow: none;
+    border-radius: 50%;
+}
+
+.order-summary {
+    display: flex;
+    flex-direction: column;
+}
+
+.order-summary-card {
+    max-height: 200px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.order-summary-card h5 {
+    flex-shrink: 0;
+    margin-bottom: 1rem;
+}
+
+.modal-cart-content {
+    flex: 1 1 auto;
+    overflow-y: auto;
+}
+
+.order-summary-totals {
+    margin-top: 0px;
+}
+
 .ornaments {
     position: absolute;
     width: 100%;

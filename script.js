@@ -254,10 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
         confirmButton.addEventListener('click', (event) => {
             event.stopPropagation();
-            alert('Order confirmed!');
-            cart = [];
-            updateCartDisplay();
-            localStorage.removeItem('cart');
+            openModal();
         });
     
         cartList.appendChild(confirmButton);
@@ -273,6 +270,117 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             navbar.classList.remove('navbar-home-shadow', 'navbar-dark-shadow');
         }
+    }
+
+    function openModal() {
+        const modal = document.getElementById('checkoutModal');
+        modal.classList.remove('hidden');
+        document.body.classList.add('body-blur');
+        updateModalCartContent();
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('checkoutModal');
+        modal.classList.add('hidden');
+        document.body.classList.remove('body-blur');
+    }    
+    
+    document.getElementById('submitOrderButton').addEventListener('click', (event) => {
+        event.preventDefault();
+        alert('Order submitted successfully!');
+        cart = [];
+        updateCartDisplay();
+        localStorage.removeItem('cart');
+        closeModal();
+    });
+
+    function updateModalCartContent() {
+        const modalCartContent = document.querySelector('.modal-cart-content');
+        modalCartContent.innerHTML = '';
+
+        let subtotal = 0;
+
+        if (cart.length === 0) {
+            const emptyMessage = document.createElement('p');
+            emptyMessage.classList.add('text-muted', 'text-center');
+            emptyMessage.textContent = 'Your cart is empty.';
+            modalCartContent.appendChild(emptyMessage);
+
+            const orderSummaryTotals = document.querySelector('.order-summary-totals');
+            orderSummaryTotals.innerHTML = '';
+
+            return;
+        }
+
+        cart.forEach(item => {
+            subtotal += item.price * item.quantity;
+
+            const card = document.createElement('div');
+            card.classList.add('card', 'mb-3');
+
+            const row = document.createElement('div');
+            row.classList.add('row', 'g-0');
+
+            const colImg = document.createElement('div');
+            colImg.classList.add('col-4', 'd-flex', 'align-items-center');
+            const img = document.createElement('img');
+            img.src = item.imgSrc;
+            img.classList.add('img-fluid', 'rounded-start');
+            img.alt = item.name;
+            colImg.appendChild(img);
+
+            const colInfo = document.createElement('div');
+            colInfo.classList.add('col-8');
+            const cardBody = document.createElement('div');
+            cardBody.classList.add('card-body', 'p-2');
+
+            const title = document.createElement('h5');
+            title.classList.add('card-title', 'mb-1');
+            title.textContent = item.name;
+
+            const quantity = document.createElement('p');
+            quantity.classList.add('card-text', 'mb-1');
+            quantity.textContent = `Quantity: ${item.quantity}`;
+
+            const price = document.createElement('p');
+            price.classList.add('card-text');
+            price.textContent = `Price: $${(item.price * item.quantity).toFixed(2)}`;
+
+            cardBody.appendChild(title);
+            cardBody.appendChild(quantity);
+            cardBody.appendChild(price);
+            colInfo.appendChild(cardBody);
+
+            row.appendChild(colImg);
+            row.appendChild(colInfo);
+            card.appendChild(row);
+
+            modalCartContent.appendChild(card);
+        });
+
+        const orderSummaryTotals = document.querySelector('.order-summary-totals');
+        orderSummaryTotals.innerHTML = '';
+
+        const subtotalDiv = document.createElement('div');
+        subtotalDiv.classList.add('d-flex', 'justify-content-between', 'mt-3');
+
+        subtotalDiv.innerHTML = `<strong>Subtotal</strong><strong>$${subtotal.toFixed(2)}</strong>`;
+
+        const shippingFee = 2.50;
+        const shippingDiv = document.createElement('div');
+        shippingDiv.classList.add('d-flex', 'justify-content-between');
+
+        shippingDiv.innerHTML = `<span>Shipping Fee</span><span>$${shippingFee.toFixed(2)}</span>`;
+
+        const total = subtotal + shippingFee;
+        const totalDiv = document.createElement('div');
+        totalDiv.classList.add('d-flex', 'justify-content-between', 'mb-3');
+
+        totalDiv.innerHTML = `<strong>Total</strong><strong>$${total.toFixed(2)}</strong>`;
+
+        orderSummaryTotals.appendChild(subtotalDiv);
+        orderSummaryTotals.appendChild(shippingDiv);
+        orderSummaryTotals.appendChild(totalDiv);
     }
 
     window.addEventListener('storage', (event) => {
@@ -301,4 +409,12 @@ document.addEventListener('DOMContentLoaded', () => {
     );
 
     observer.observe(homeSection);
+        const modalCloseButton = document.querySelector('.modal-close-button');
+
+        modalCloseButton.addEventListener('click', function() {
+            const modal = document.getElementById('checkoutModal');
+            modal.classList.add('hidden');
+            document.body.classList.remove('body-blur');
+        });
+    
 });

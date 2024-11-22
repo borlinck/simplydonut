@@ -4,6 +4,25 @@ body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.034) transparent;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: rgba(255, 244, 223, 0.151) !important;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.233);
+    border-radius: 5.3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.034);
 }
 
 * {
@@ -358,7 +377,7 @@ body {
 }
 
 .body-blur #mainContent {
-    filter: blur(8px);
+    filter: blur(10px);
     pointer-events: none;
 }
 
@@ -372,32 +391,142 @@ body {
     max-width: 700px;
 }
 
-.modal-custom .card {
-    border-radius: 12px;
-    background-color: #f5f5f5;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-}
-
 .modal-custom button {
     border-radius: 8px;
     font-weight: bold;
 }
 
-.modal-close-button {
+#checkoutModal .card {
+    border-radius: 12px;
+    background-color: rgba(191, 191, 191, 0.216); 
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    border: none;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+#checkoutModal .modal-close-button {
     position: absolute;
     top: 1rem;
     right: 1rem;
-    color: #000;
+    color: white;
     outline: none;
 }
 
-.modal-close-button:hover {
-    opacity: 0.7;
+#checkoutModal .modal-close-button:hover {
+    opacity: 0.8;
 }
 
-.modal-close-button:focus {
+#checkoutModal .modal-close-button:focus {
     box-shadow: none;
-    border-radius: 50%;
+}
+
+#checkoutModal .modal-close-button:active {
+    transform: translateY(1px);
+}
+
+#checkoutModal .form-label, 
+#checkoutModal .form-control {
+    color: white;
+}
+
+#checkoutModal .form-control {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.5); 
+    border-radius: 10px;
+    box-shadow: none;
+    height: calc(1.5em + 0.75rem + 2px);
+}
+
+#checkoutModal .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+#checkoutModal .form-control:focus {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+    box-shadow: none;
+}
+
+#checkoutModal .btn-primary {
+    background-color: hsla(0, 0%, 85%, 0.205);
+    border: none;
+    box-shadow: 2rem 2rem 2rem rgba(0, 0, 0, 0.2);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.274);
+    font-size: 1.2rem;
+    color: white;
+}
+
+#checkoutModal .btn-primary:hover {
+    background-color: rgba(255, 255, 255, 0.216);
+}
+
+#checkoutModal .btn-primary:active {
+    background-color: rgba(248, 248, 248, 0.774);
+    box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.5); 
+    transform: translateY(2px);
+}
+
+#checkoutModal .modal-cart-content .card {
+    background-color: rgba(194, 194, 194, 0.281); 
+    border: none;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+}
+
+#checkoutModal .modal-cart-content .card-body {
+    color: white;
+}
+
+#checkoutModal .order-summary-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+#checkoutModal .order-summary-card h5 {
+    flex-shrink: 0;
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+#checkoutModal .order-summary-totals {
+    margin-top: 0px;
+    color: white;
+}
+
+#checkoutModal hr {
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+#checkoutModal .text-muted {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+#checkoutModal .text-center {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.modal-cart-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-cart-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal-cart-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 4px;
+}
+
+.modal-cart-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.modal-cart-content {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.5) transparent; 
 }
 
 .order-summary {
@@ -412,18 +541,9 @@ body {
     overflow: hidden;
 }
 
-.order-summary-card h5 {
-    flex-shrink: 0;
-    margin-bottom: 1rem;
-}
-
 .modal-cart-content {
     flex: 1 1 auto;
     overflow-y: auto;
-}
-
-.order-summary-totals {
-    margin-top: 0px;
 }
 
 .ornaments {

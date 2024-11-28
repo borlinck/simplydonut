@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             cart = JSON.parse(localStorage.getItem('cart'));
         } catch (e) {
-            console.error('Erro ao carregar o carrinho do localStorage:', e);
+            console.error('Error loading cart from localStorage:', e);
             localStorage.removeItem('cart');
         }
     }
@@ -389,7 +389,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 try {
                     cart = JSON.parse(event.newValue);
                 } catch (e) {
-                    console.error('Erro ao sincronizar o carrinho entre abas:', e);
+                    console.error('Error synchronizing cart between tabs:', e);
                     cart = [];
                 }
             } else {
